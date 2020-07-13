@@ -108,6 +108,11 @@ nav svg {
   stroke: var(--primary);
 }
 
+#menu-toggle:hover,
+#menu-toggle:active {
+  opacity: 0.7;
+}
+
 /* 
  *  LAYOVER
  */
