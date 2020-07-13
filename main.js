@@ -114,8 +114,9 @@ const addMessageToStorage = (message) => {
 const savedMessages = getMessagesFromStorage();
 if (savedMessages) {
   savedMessages.forEach((message) => appendMessage(message));
+} else {
+  sendCatMessage();
 }
-sendCatMessage();
 
 // Event for button
 const submitButton = document.querySelector('button');
@@ -157,3 +158,10 @@ resetButton.addEventListener('click', () => {
   location.reload();
   toggleLayover();
 });
+
+// Hide layover when background is clicked
+const layoverElement = document.querySelector('div.layover');
+layoverElement.onclick = function (e) {
+  if (e.target !== this) return;
+  toggleLayover();
+};
