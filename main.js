@@ -13,6 +13,7 @@ const appendMessage = (message) => {
   newMessage.classList.add(`${message.type}-message`);
   newMessage.innerHTML = message.content;
 
+  addMessageToStorage(message);
   chatWindow.append(newMessage);
   scrollToBottom();
 };
@@ -88,9 +89,32 @@ const triggerAction = (action) => {
   sendCatMessage();
 };
 
+// # LOCAL STORAGE STUFF
+// Get data from local storage
+const getMessagesFromStorage = () => {
+  const storageState = JSON.parse(localStorage.getItem('chatmessages'));
+  return storageState;
+};
+
+// Add data to local storage
+const addMessageToStorage = (message) => {
+  const storageState = getMessagesFromStorage();
+  if (storageState) {
+    storageState.push(message);
+    localStorage.setItem('chatmessages', JSON.stringify(storageState));
+  } else {
+    const newState = [];
+    newState.push(message);
+    localStorage.setItem('chatmessages', JSON.stringify(newState));
+  }
+};
+
 // # DOM OPERATIONS
-// Initial scroll to bottom
-scrollToBottom();
+// Initialization stuff
+const savedMessages = getMessagesFromStorage();
+if (savedMessages) {
+  savedMessages.forEach((message) => appendMessage(message));
+}
 sendCatMessage();
 
 // Event for button
@@ -111,6 +135,7 @@ menuIcon.addEventListener('click', toggleLayover);
 const feedButton = document.querySelector('#feed-button');
 const petButton = document.querySelector('#pet-button');
 const playButton = document.querySelector('#play-button');
+const resetButton = document.querySelector('#reset-button');
 
 feedButton.addEventListener('click', () => {
   triggerAction('feed');
@@ -124,5 +149,11 @@ petButton.addEventListener('click', () => {
 
 playButton.addEventListener('click', () => {
   triggerAction('play');
+  toggleLayover();
+});
+
+resetButton.addEventListener('click', () => {
+  localStorage.clear();
+  location.reload();
   toggleLayover();
 });
