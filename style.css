@@ -8,13 +8,17 @@
   --output-bg: aliceblue;
   --user-message-bg: #ced8ed;
   --cat-message-bg: #c2cde7;
+  --action-message-bg: var(--secondary);
+  --action-message-color: #fff;
   --button-bg: var(--secondary);
   --button-color: #fff;
   --button-hover-bg: #cf5e7e;
+  --layover-bg: aliceblue;
+  --layover-li-bg: #ced8ed;
 }
 
 /* 
- *  GENERAL STYLES
+ *  GENERAL STYLES & UTILS
  */
 * {
   box-sizing: border-box;
@@ -24,6 +28,10 @@
 
 html {
   font-family: 'Inter', sans-serif;
+}
+
+.hide {
+  display: none !important;
 }
 
 /* 
@@ -52,6 +60,7 @@ header {
   flex: 1;
   padding: 20px;
   overflow: auto;
+  scroll-behavior: smooth;
 }
 
 .input-area {
@@ -74,17 +83,66 @@ header {
     position: static;
     height: 650px;
     width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 2px 3px #00000022, 1px 2px 9px #00000011;
   }
 }
 
 /* 
  *  HEADER
  */
-header div {
+header > div {
   font-family: Chewy;
   font-weight: 400;
   font-size: 1.8rem;
   color: var(--primary);
+  flex: 1;
+}
+
+#menu-toggle {
+  cursor: pointer;
+}
+
+nav svg {
+  stroke: var(--primary);
+}
+
+/* 
+ *  LAYOVER
+ */
+.layover {
+  position: fixed;
+  background-color: #00000099;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+}
+
+.layover ul {
+  background-color: var(--layover-bg);
+  display: inline-block;
+  padding: 20px;
+  list-style-type: none;
+  width: 200px;
+  border-radius: 6px;
+}
+
+.layover ul li {
+  padding: 20px;
+  cursor: pointer;
+  background-color: var(--layover-li-bg);
+  text-align: center;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.layover ul > li + li {
+  margin-top: 20px;
 }
 
 /* 
@@ -112,10 +170,6 @@ header div {
   transform: rotate(45deg);
 }
 
-.user-message p {
-  opacity: 0.7;
-}
-
 .cat-message {
   margin-top: 20px;
   background-color: var(--cat-message-bg);
@@ -138,35 +192,45 @@ header div {
   transform: rotate(45deg);
 }
 
-.cat-message p {
-  opacity: 0.7;
+.action-message {
+  margin-top: 20px;
+  background-color: var(--action-message-bg);
+  color: var(--action-message-color);
+  padding: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  position: relative;
+  border-radius: 6px;
+  line-height: 1.5;
+  opacity: 0.8;
 }
 
 /* 
  *  INPUT WINDOW
  */
-.input-area form {
+.input-area {
   display: flex;
   height: 48px;
 }
 
-.input-area form input {
+.input-area input {
   flex: 1;
   padding: 0 20px;
   font-family: Inter;
   border: none;
 }
 
-.input-area form button {
+.input-area button {
   background-color: var(--button-bg);
   color: var(--button-color);
   border: none;
   padding: 0 20px;
   font-weight: 700;
   font-family: Inter;
+  cursor: pointer;
 }
 
-.input-area form button:hover,
-.input-area form button:active {
+.input-area button:hover,
+.input-area button:active {
   background-color: var(--button-hover-bg);
 }
